@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>TODO LIST</h1>
+    <input type="text" id="inp"> 
+    <button id="bt1" onclick="todofunc()">SAVE</button>
+<ul id="todo_made"></ul>
+   
+   
+<style>
+    .checked {
+      text-decoration: line-through; /* Strikethrough for checked items */
+    }
+
+
+    
+  </style>
+   
+   
+   <script>
+
+
+const input_text = document.getElementById('inp')
+const todocreated = document.getElementById('todo_made') 
+
+function todofunc(){ 
+   const  input_text1 = input_text.value;
+   if(input_text1 === '') return;
+    
+   const li = document.createElement('li')
+   li.textContent = input_text1;
+   
+  
+   
+   todocreated.appendChild(li);
+  
+   const dele = document.createElement('button')
+ 
+   dele.textContent = 'Delete';
+   dele.addEventListener('click', () => { todocreated.removeChild(li) ; 
+    } );
+
+    li.appendChild(dele);
+    input_text.value= "";
+}
+
+
+  input_text.focus()
+
+
+  const bt12 = document.getElementById('bt1')
+   input_text.addEventListener('keydown', (event) => { if (event.key === 'Enter') {
+    bt12.click(); }} );
+
+    todocreated.addEventListener('click', (evet) => {
+        if (evet.target.tagName === 'LI') {
+            evet.target.classList.toggle('checked');
+      }
+    });
+
+
+
+    </script>
+</body>
+</html>
