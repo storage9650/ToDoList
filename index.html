@@ -8,8 +8,8 @@
 </head>
 <body>
     <h1>TODO LIST</h1>
-    <input type="text" id="inp"> 
-    <button id="bt1" onclick="todofunc()">SAVE</button>
+    <input type="text" id="inp" class="input"> 
+    <button id="bt1" class="bt12" onclick="todofunc()">SAVE</button>
 <ul id="todo_made"></ul>
    
    
@@ -17,7 +17,128 @@
     .checked {
       text-decoration: line-through; /* Strikethrough for checked items */
     }
+/* Basic Styling for the To-Do List */
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  background-color:#e54178; /* Light background */
+}
 
+.todo-container {  /* Container for the whole to-do list */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  ;  font-size: 50px;
+
+   /* Darker heading color */
+}
+
+/* Input Field */
+.input {
+  width: calc(100% - 100px); /* Adjust width for button space */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding in width calculation */
+  font-size: 16px;
+  margin-right: 10px; /* Space between input and button */
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4CAF50; /* Green focus style */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); /* Green focus shadow */
+}
+
+
+/* Buttons */
+.bt11, .bt12 {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.bt11 { /* Add Button */
+  background-color: white; /* Green */
+  color: #e54178;
+}
+
+
+
+.bt12 { /* Clear/Delete Button (if you have one) */
+  background-color: white; /* Red */
+  color: #e54178;
+}
+
+
+/* List Items */
+ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0;
+  margin-top: 20px;
+}
+
+.li {
+  padding: 10px;
+  border-bottom: 1px solid #eee; /* Light separator lines */
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically center content */
+  font-size: 25px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+.li:last-child {
+  border-bottom: none; /* Remove bottom border on last item */
+}
+
+.li span { /* The text of the todo item */
+  flex-grow: 1;  /* Allow text to expand */
+  word-wrap: break-word; /* Prevent long words from overflowing */
+}
+
+.li button { /* Delete button for each list item */
+    background-color: white;
+    color: #e54178;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+
+/* Completed Task Styling (Optional) */
+.li.completed span {
+  text-decoration: line-through;
+  color: #888; /* Gray out completed tasks */
+}
+
+.li.completed button { /* Style delete button for completed tasks */
+  opacity: 0.7; /* Slightly transparent */
+}
+
+/* Responsive Design (Optional - adjust breakpoints as needed) */
+@media (max-width: 600px) {
+  .input {
+    width: calc(100% - 80px); /* Adjust input width on smaller screens */
+  }
+  .bt11, .bt12 {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
 
     
   </style>
@@ -25,7 +146,10 @@
    
    <script>
 
-
+document.addEventListener("DOMContentLoaded", () => {
+  const storedTasks = JSON.parse(localStorage.getItem("tasks")) || []; // Get tasks or empty array
+  storedTasks.forEach(taskText => addTask(taskText)); // Add each task to the list
+});
 const input_text = document.getElementById('inp')
 const todocreated = document.getElementById('todo_made') 
 
@@ -35,6 +159,9 @@ function todofunc(){
     
    const li = document.createElement('li')
    li.textContent = input_text1;
+   li.classList.add('li');
+   
+
    
   
    
